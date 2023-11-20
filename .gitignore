@@ -1,0 +1,31 @@
+# Byte-compiled files
+__pycache__/
+
+# Compiled Python files
+*.pyc
+
+# Virtual environment
+venv/
+
+# IDE or editor files
+.vscode/
+.idea/
+
+# Compiled Python modules
+*.pyc
+*.pyo
+__pycache__/
+
+# Logs
+*.log
+
+# Environment variables file
+.env
+
+# Custom
+constants.py
+*.wav
+*.mp3
+*.txt
+*.png
+*.ttf
