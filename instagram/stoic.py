@@ -5,6 +5,7 @@
 
 # Imports
 import time
+import glob
 import requests
 
 from openai import OpenAI
@@ -15,6 +16,16 @@ client = OpenAI(api_key=OPENAPI_KEY)
 
 # Helper Modules
 from text import add_image_text
+
+# Functions
+def get_image_name(image_name: str):
+    images = glob.glob(f'{image_name}_*_text.png')
+    len_images = len(images)
+    
+    image_name = f'{image_name}_{len_images + 1}.png'
+    print(image_name)
+    
+    return image_name
 
 
 def download_image(url: str, save_path: str):
@@ -63,7 +74,7 @@ def get_quote():
 
 def create_image_prompt(quote: str):
     
-    content = f'Pull out the 4 most key words from the following quote "{quote}"'
+    content = f'Pull out the 3 most key words from the following quote "{quote}". Respond with the following format word1, word2, word3.'
     
     messages = [{ "role": "user", "content": content}]
     
@@ -111,8 +122,11 @@ def main():
     image_url = create_image(image_prompt)
     
     # # Download Image
-    image_name = 'stoic_2.png'
+    image_name = get_image_name('stoic')
     image_path = download_image(image_url, image_name)
+    
+    # image_name = 'stoic_1.png'
+    # quote = '"Discontent arises not from the nature of things, but from our interpretation of them; accept life as it is, and find peace within the storm."'
     
     # quote = '"Amid chaos and disorder, be the tranquil soul accepting the way of the world, not asking for it to bend to your will."'
     # quote = '"Embrace adversity, for it is within its crucible that our true character is forged."'
@@ -124,3 +138,4 @@ def main():
     
 if __name__ == "__main__":
     main()
+    # upload_to_instagram('stoic_1_text.png', '"Discontent arises not from the nature of things, but from our interpretation of them; accept life as it is, and find peace within the storm."')
