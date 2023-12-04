@@ -107,27 +107,27 @@ def create_profile():
     print(response)
     
 
-
 def main():
-    # # Create Quote
-    # quote = get_quote()
-    # quote = quote.data[0].content[0].text.value
-    # print('Quote', quote)
+    # Create Quote
+    quote = get_quote()
+    quote = quote.data[0].content[0].text.value
+    print('Quote', quote)
     
-    # # Create Image Prompt
-    # key_words = create_image_prompt(quote)
-    # image_prompt = f'Create a cute colorful background with a Barbie silhouette using {key_words} as the theme'
-    # print(image_prompt)
+    # Create Image Prompt
+    key_words = create_image_prompt(quote)
+    image_prompt = f'Create a background with a Barbie silhouette using {key_words} as the theme. Add lots of pink.'
+    print(image_prompt)
     
-    # image_url = create_image(image_prompt)
+    image_url = create_image(image_prompt)
     
     # # Download Image
-    image_name = 'barbie_1.png'
-    # image_path = download_image(image_url, image_name)
-    quote = '"Smile, because your sparkling spirit can light up the world"'
+    image_name = 'barbie_3.png'
+    image_path = download_image(image_url, image_name)
+    # quote = '"Smile, because your sparkling spirit can light up the world"'
+    # quote = 'Believe in the magic of sparkle, and your dreams will twinkle brighter every day!'
 
     # Add text to the image
-    add_image_text(image_path=image_name, text=quote, font_path='JustAnotherHand-Regular.ttf', color='pink', desaturated=False)
+    add_image_text(image_path=image_name, text=quote, font_path='JustAnotherHand-Regular.ttf', color='white', desaturated=False)
     
     
 if __name__ == "__main__":

@@ -16,10 +16,11 @@ client = OpenAI(api_key=OPENAPI_KEY)
 
 # Helper Modules
 from text import add_image_text
+from upload_photo import upload_to_instagram
 
 # Functions
 def get_image_name(image_name: str):
-    images = glob.glob(f'{image_name}_*_text.png')
+    images = glob.glob(f'{image_name}_*_text.jpg')
     len_images = len(images)
     
     image_name = f'{image_name}_{len_images + 1}.png'
@@ -107,7 +108,15 @@ def main():
     # Create Quote
     quote = get_quote()
     quote = quote.data[0].content[0].text.value
-    print('Quote', quote)    
+    print('Full Quote', quote)
+    
+    # Get Quote and Caption
+    split_quote = quote.split('"')
+    quote = '"' + split_quote[1] + '"'
+    print('quote', quote)
+    
+    caption = split_quote[2]
+    print('caption', caption)
 
     # Create Image Prompt
     key_words = create_image_prompt(quote)
@@ -132,10 +141,16 @@ def main():
     # quote = '"Embrace adversity, for it is within its crucible that our true character is forged."'
     # quote = '"True tranquility comes not from silencing the world, but from silencing the turmoil within."'
     # Add text to the image
-    add_image_text(image_path=image_name, text=quote)
+    image_with_text = add_image_text(image_path=image_name, text=quote)
+    
+    # Upload to Instagram
+    upload_to_instagram(image_with_text, caption)
     
     
     
 if __name__ == "__main__":
     main()
-    # upload_to_instagram('stoic_1_text.png', '"Discontent arises not from the nature of things, but from our interpretation of them; accept life as it is, and find peace within the storm."')
+#     caption = '''In Stoic philosophy, obstacles often pave a path for personal growth rather than stopping an individual’s progress. The essence of this quote lies in recognizing the transformative potential of difficulties, hardships, or setbacks we face in life. Instead of viewing them as hurdles or roadblocks, Stoicism suggests acknowledging them as opportunities for growth and progress. These obstacles offer an invaluable chance of self-introspection, understanding, development, and personal enrichment.
+
+# Embracing obstacles with a positive outlook accelerates personal growth because it allows us to learn from our experiences. By treating these obstacles as stepping-stones, we can build resilience and strengthen our character. This empowers us to foster perseverance, determination, and fortitude in the face of adversity, ultimately leading to an enriching and purposeful life. Thus, each obstacle can be seen not as a hindrance but instead as a chance to practice and cultivate Stoic values and virtues.'''
+#     upload_to_instagram('stoic_4_text.jpg', caption)
